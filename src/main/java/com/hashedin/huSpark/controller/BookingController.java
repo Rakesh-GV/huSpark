@@ -19,6 +19,7 @@ import java.security.Principal;
 public class BookingController {
     @Autowired
     private BookingService bookingService;
+
     @Autowired
     private UserInfoService userInfoService;
 

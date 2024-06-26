@@ -1,7 +1,9 @@
 package com.hashedin.huSpark.service;
 
 import com.hashedin.huSpark.entity.Event;
+import com.hashedin.huSpark.entity.EventType;
 import com.hashedin.huSpark.repository.EventRepository;
+import com.hashedin.huSpark.repository.EventTypeRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,9 @@ import java.util.List;
 public class EventService {
     @Autowired
     private EventRepository eventRepository;
+
+    @Autowired
+    private EventTypeRepository eventTypeRepository;
 
     public Event createEvent(Event event) {
         if (eventRepository.existsByNameAndStartTimeAndEndTime(event.getName(), event.getStartTime(), event.getEndTime())) {
@@ -27,7 +32,8 @@ public class EventService {
     }
 
 
-    public List<Event> searchEvents(String eventType, String name, String theater) {
+    public List<Event> searchEvents(String eventTypeName, String name, String theater) {
+        var eventType = eventTypeRepository.findByEventTypeName(eventTypeName);
         return eventRepository.findByEventTypeAndNameAndTheatre(eventType, name, theater);
     }
 

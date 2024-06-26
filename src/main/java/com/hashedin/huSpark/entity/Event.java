@@ -1,10 +1,12 @@
 package com.hashedin.huSpark.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Getter
 @Entity
 public class Event {
 
@@ -31,42 +33,6 @@ public class Event {
         this.startTime = startTime;
         this.availableSeats = availableSeats;
         this.theatre = theatre;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getMaxOccupancy() {
-        return maxOccupancy;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public LocalDateTime getStartTime() {
-        return startTime;
-    }
-
-    public LocalDateTime getEndTime() {
-        return endTime;
-    }
-
-    public int getAvailableSeats() {
-        return availableSeats;
-    }
-
-    public EventType getEventType() {
-        return eventType;
-    }
-
-    public Theatre getTheatre() {
-        return theatre;
     }
 
     public void setId(Long id) {
