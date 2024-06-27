@@ -1,6 +1,5 @@
 package com.hashedin.huSpark.service;
 
-import com.hashedin.huSpark.entity.Event;
 import com.hashedin.huSpark.entity.EventType;
 import com.hashedin.huSpark.repository.EventTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;

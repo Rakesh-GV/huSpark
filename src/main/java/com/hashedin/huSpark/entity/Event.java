@@ -25,7 +25,6 @@ public class Event {
     @JoinColumn(name = "event_type_id", nullable = false,referencedColumnName="id")
     private EventType eventType;
 
-    @JsonProperty()
     @ManyToOne
     @JoinColumn(name = "theatre_id", nullable = false,referencedColumnName="id")
     private Theatre theatre;

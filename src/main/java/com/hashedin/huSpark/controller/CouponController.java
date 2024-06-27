@@ -22,7 +22,7 @@ public class CouponController {
     @Autowired
     private EventTypeService eventTypeService;
 
-    @PostMapping("/add_coupon")
+    @PostMapping()
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Coupon> createCoupon(@RequestBody CouponDto couponDto) {
         var event = eventTypeService.getByEventTypeId(couponDto.getEventType());
@@ -43,7 +43,7 @@ public class CouponController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/get_all")
+    @GetMapping("")
     public ResponseEntity<List<Coupon>> getAllCoupons() {
         List<Coupon> coupons = couponService.getAllCoupons();
         return new ResponseEntity<>(coupons, HttpStatus.OK);
