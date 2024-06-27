@@ -17,8 +17,9 @@ public class EventTypeService {
         return eventTypeRepository.save(eventType);
     }
 
-    public EventType findByName(EventType eventType) {
-        return eventTypeRepository.findByEventTypeName(eventType.getName());
+
+    public Optional<EventType> getByEventTypeId(long id){
+        return eventTypeRepository.findById(id);
     }
 
     public List<EventType> getAllEventTypes() {

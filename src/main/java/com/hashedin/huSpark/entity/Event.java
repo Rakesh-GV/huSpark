@@ -1,5 +1,6 @@
 package com.hashedin.huSpark.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -23,7 +24,9 @@ public class Event {
     @ManyToOne
     @JoinColumn(name = "event_type_id", nullable = false,referencedColumnName="id")
     private EventType eventType;
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    @JsonProperty()
+    @ManyToOne
     @JoinColumn(name = "theatre_id", nullable = false,referencedColumnName="id")
     private Theatre theatre;
 
