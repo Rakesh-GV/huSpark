@@ -1,8 +1,6 @@
 package com.hashedin.huSpark.controller;
 
 import com.hashedin.huSpark.entity.Event;
-import com.hashedin.huSpark.entity.EventType;
-import com.hashedin.huSpark.entity.Theatre;
 import com.hashedin.huSpark.model.CreateEvent;
 import com.hashedin.huSpark.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Stream;
+import java.util.*;
 
 @RestController
 @RequestMapping(path = "/events")
@@ -45,9 +39,16 @@ public class EventController {
    @GetMapping("/search")
     public ResponseEntity<List<Event>> searchEvents(@RequestParam(required = false) String eventType, @RequestParam(required = false) String name, @RequestParam(required = false) String theatre) {
         List<Event> all = eventService.getEvents();
-       List<Event> filteredEvents = all.stream().filter(e -> e.getEventType().getName().contains(eventType) || e.getName().contains(name) || e.getTheatre().getName().contains(theatre) ).toList();
+
+       List<Event> filteredEvents = all.stream().filter(e -> (isNotEmptyString(eventType) && e.getEventType().getName().contains(eventType)) ||
+               (isNotEmptyString(name) && e.getName().contains(name)) || (isNotEmptyString(theatre) && e.getTheatre().getName().contains(theatre)) ).toList();
        return new ResponseEntity<>(filteredEvents, HttpStatus.OK);
     }
+
+    private boolean isNotEmptyString(String string) {
+        return string != null && !string.isEmpty();
+    }
+
 
 
 }
