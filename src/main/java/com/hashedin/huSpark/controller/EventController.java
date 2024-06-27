@@ -12,11 +12,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
 @RestController
-@RequestMapping("/events")
+@RequestMapping(path = "/events")
 public class EventController {
     @Autowired
     private EventService eventService;
@@ -29,9 +30,8 @@ public class EventController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Event>> getEvents() {
-        var events = eventService.getEvents();
-        return ResponseEntity.ok(new ArrayList<>(events));
+    public List<Event> getEvents() {
+        return eventService.getEvents();
     }
 
     @DeleteMapping("/{eventId}")

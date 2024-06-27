@@ -21,8 +21,8 @@ public class EventService {
     @Autowired
     private EventRepository eventRepository;
 
-    @Autowired
-    private TheaterRepository theaterRepository;
+    /*@Autowired
+    private TheaterRepository theaterRepository;*/
 
     @Autowired
     private Mapper mapper;
@@ -39,7 +39,7 @@ public class EventService {
         eventRepository.delete(event);
     }
 
-    public Collection<Event> getEvents() {
+    public List<Event> getEvents() {
         return eventRepository.findAll();
     }
 
