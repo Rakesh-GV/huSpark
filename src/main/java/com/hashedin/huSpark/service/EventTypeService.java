@@ -20,4 +20,9 @@ public class EventTypeService {
     public List<EventType> getAllEventTypes() {
         return eventTypeRepository.findAll();
     }
+
+    public Optional<EventType> getByEventTypeId(long id) {
+        return eventTypeRepository.findById(id);
+    }
+
 }
