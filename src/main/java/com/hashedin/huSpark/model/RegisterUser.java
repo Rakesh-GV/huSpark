@@ -1,27 +1,16 @@
-package com.hashedin.huSpark.entity;
+package com.hashedin.huSpark.model;
 
-import com.hashedin.huSpark.model.RegisterUser;
-import com.hashedin.huSpark.service.UserInfoDetails;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.Period;
 
-@Entity
-@Table(name = "users_bookMyShow")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
-public class User  {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class RegisterUser {
 
     @NotBlank(message = "Name is mandatory")
     private String name;
@@ -46,10 +35,4 @@ public class User  {
     @Past(message = "DOB should be in the past")
     private LocalDate dob;
 
-    @Transient
-    public int getAge() {
-        return Period.between(this.dob, LocalDate.now()).getYears();
-    }
-
-    private String roles;
 }

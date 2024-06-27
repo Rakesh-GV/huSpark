@@ -2,10 +2,12 @@ package com.hashedin.huSpark.controller;
 
 import com.hashedin.huSpark.entity.AuthRequest;
 import com.hashedin.huSpark.entity.User;
+import com.hashedin.huSpark.model.RegisterUser;
 import com.hashedin.huSpark.service.JwtService;
 import com.hashedin.huSpark.service.UserInfoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,7 +27,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> addNewUser(@RequestBody User userInfo) {
+    public ResponseEntity<String> addNewUser(@RequestBody RegisterUser userInfo) {
         String response = service.addUser(userInfo);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
@@ -40,9 +42,11 @@ public class UserController {
             throw new UsernameNotFoundException("Invalid user request!");
         }
     }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/hello")
-    public String hello() {
-        return "Hello World!";
+    public ResponseEntity<String> sayHello(){
+        return ResponseEntity.ok("Hello!!");
     }
 }
 

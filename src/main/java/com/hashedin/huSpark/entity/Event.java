@@ -1,10 +1,12 @@
 package com.hashedin.huSpark.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Data
 @Entity
 public class Event {
 
@@ -19,19 +21,11 @@ public class Event {
     private int availableSeats;
 
     @ManyToOne
-    @JoinColumn(name = "event_type_id", nullable = false)
+    @JoinColumn(name = "event_type_id", nullable = false,referencedColumnName="id")
     private EventType eventType;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "theatre_id", nullable = false)
+    @JoinColumn(name = "theatre_id", nullable = false,referencedColumnName="id")
     private Theatre theatre;
-
-    public Event(Long id, BigDecimal price, LocalDateTime startTime, int availableSeats, Theatre theatre) {
-        this.id = id;
-        this.price = price;
-        this.startTime = startTime;
-        this.availableSeats = availableSeats;
-        this.theatre = theatre;
-    }
 
     public Long getId() {
         return id;

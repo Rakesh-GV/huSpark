@@ -13,9 +13,6 @@ public class Theatre {
     private String name;
     private String location;
 
-    @OneToMany(mappedBy = "theatre", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Event> events;
-
     // Constructors, getters, and setters
     public Theatre() {}
 
@@ -48,11 +45,4 @@ public class Theatre {
         this.location = location;
     }
 
-    public Set<Event> getEvents() {
-        return events;
-    }
-
-    public void setEvents(Set<Event> events) {
-        this.events = events;
-    }
 }

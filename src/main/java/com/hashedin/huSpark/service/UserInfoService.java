@@ -1,6 +1,8 @@
 package com.hashedin.huSpark.service;
 
 import com.hashedin.huSpark.entity.User;
+import com.hashedin.huSpark.model.Mapper;
+import com.hashedin.huSpark.model.RegisterUser;
 import com.hashedin.huSpark.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,16 +17,17 @@ import java.util.Optional;
 @Service
 public class UserInfoService implements UserDetailsService {
 
-    @Autowired
-    private UserRepository repository;
+    private final UserRepository repository;
+
+    private final Mapper mapper;
 
     private final PasswordEncoder encoder;
-    public UserInfoService(UserRepository repository, PasswordEncoder encoder) {
+
+    public UserInfoService(UserRepository repository, PasswordEncoder encoder, Mapper mapper) {
         this.repository = repository;
         this.encoder = encoder;
+        this.mapper = mapper;
     }
-
-
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -33,16 +36,17 @@ public class UserInfoService implements UserDetailsService {
         return userDetail.map(UserInfoDetails::new)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found " + username));
     }
-    public String addUser(User userInfo) {
-        userInfo.setPassword(encoder.encode(userInfo.getPassword()));
-        repository.save(userInfo);
+
+    public String addUser(RegisterUser registerUser) {
+        var user = mapper.MapToUser(registerUser);
+        user.setPassword(encoder.encode(user.getPassword()));
+        repository.save(user);
         return "User Added Successfully";
     }
-    public  User findByEmail(String email)
-    {
+
+    public User findByEmail(String email) {
         return repository.findByEmail(email).
                 orElseThrow(() -> new EntityNotFoundException("user not found"));
 
     }
-
 }
