@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping(path = "/events")
@@ -41,11 +42,12 @@ public class EventController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-  /*  @GetMapping("/search")
-    public ResponseEntity<List<Event>> searchEvents(@RequestParam(required = false) String eventType, @RequestParam(required = false) String name, @RequestParam(required = false) String theater) {
-        List<Event> events = eventService.searchEvents(eventType, name, theater);
-        return new ResponseEntity<>(events, HttpStatus.OK);
-    }*/
+   @GetMapping("/search")
+    public ResponseEntity<List<Event>> searchEvents(@RequestParam(required = false) String eventType, @RequestParam(required = false) String name, @RequestParam(required = false) String theatre) {
+        List<Event> all = eventService.getEvents();
+       List<Event> filteredEvents = all.stream().filter(e -> e.getEventType().getName().contains(eventType) || e.getName().contains(name) || e.getTheatre().getName().contains(theatre) ).toList();
+       return new ResponseEntity<>(filteredEvents, HttpStatus.OK);
+    }
 
 
 }
