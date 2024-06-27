@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EventTypeService {
@@ -14,6 +15,10 @@ public class EventTypeService {
 
     public EventType createEventType(EventType eventType) {
         return eventTypeRepository.save(eventType);
+    }
+
+    public EventType findByName(EventType eventType) {
+        return eventTypeRepository.findByEventTypeName(eventType.getName());
     }
 
     public List<EventType> getAllEventTypes() {
