@@ -1,6 +1,5 @@
 package com.hashedin.huSpark.service;
 
-import com.hashedin.huSpark.entity.Coupon;
 import com.hashedin.huSpark.entity.Event;
 import com.hashedin.huSpark.entity.EventType;
 import com.hashedin.huSpark.entity.Theatre;
@@ -22,8 +21,8 @@ public class EventService {
     @Autowired
     private EventRepository eventRepository;
 
-    @Autowired
-    private TheaterRepository theaterRepository;
+    /*@Autowired
+    private TheaterRepository theaterRepository;*/
 
     @Autowired
     private Mapper mapper;
@@ -40,7 +39,7 @@ public class EventService {
         eventRepository.delete(event);
     }
 
-    public List<Event> getAllEvents() {
+    public List<Event> getEvents() {
         return eventRepository.findAll();
     }
 

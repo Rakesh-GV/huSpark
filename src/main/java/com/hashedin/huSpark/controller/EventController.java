@@ -1,6 +1,5 @@
 package com.hashedin.huSpark.controller;
 
-import com.hashedin.huSpark.entity.Coupon;
 import com.hashedin.huSpark.entity.Event;
 import com.hashedin.huSpark.entity.EventType;
 import com.hashedin.huSpark.entity.Theatre;
@@ -13,11 +12,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
 @RestController
-@RequestMapping("/events")
+@RequestMapping(path = "/events")
 public class EventController {
     @Autowired
     private EventService eventService;
@@ -29,6 +29,10 @@ public class EventController {
         return new ResponseEntity<>(createdEvent, HttpStatus.CREATED);
     }
 
+    @GetMapping
+    public List<Event> getEvents() {
+        return eventService.getEvents();
+    }
 
     @DeleteMapping("/{eventId}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -37,11 +41,13 @@ public class EventController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/get_all")
-    public ResponseEntity<List<Event>> getAllCoupons() {
-        List<Event> coupons = eventService.getAllEvents();
-        return new ResponseEntity<>(coupons, HttpStatus.OK);
-    }
+  /*  @GetMapping("/search")
+    public ResponseEntity<List<Event>> searchEvents(@RequestParam(required = false) String eventType, @RequestParam(required = false) String name, @RequestParam(required = false) String theater) {
+        List<Event> events = eventService.searchEvents(eventType, name, theater);
+        return new ResponseEntity<>(events, HttpStatus.OK);
+    }*/
+
+
 }
 
 
